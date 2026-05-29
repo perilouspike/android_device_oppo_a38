@@ -19,7 +19,7 @@ $(call inherit-product-if-exists, vendor/pb/config/common.mk)
 $(call inherit-product, device/Oppo/A38/device.mk)
 
 PRODUCT_DEVICE := A38
-PRODUCT_NAME := twrp_a38
+PRODUCT_NAME := twrp_A38
 PRODUCT_BRAND := Oppo
 PRODUCT_MODEL := A38
 PRODUCT_MANUFACTURER := Oppo
