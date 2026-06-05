@@ -10,10 +10,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # Inherit some common Omni stuff.
-$(call inherit-product, vendor/twrp/config/common.mk)
+$(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 
-# Inherit from PBRP-common stuff, if building PBRP.
-#$(call inherit-product-if-exists, vendor/pb/config/common.mk)
+# Inherit from ossi device
+$(call inherit-product, device/oppo/ossi/device.mk)
 
 # Inherit from a38 device
 $(call inherit-product, device/Oppo/A38/device.mk)

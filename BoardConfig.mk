@@ -91,18 +91,27 @@ TARGET_BOARD_PLATFORM := mt6768
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
-# Security patch level
-VENDOR_SECURITY_PATCH := 2021-08-01
+# System Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
+# Cryptographic Signatures for Unified boot.img (Bypasses empty chained sub-images)
+BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 1
+BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := $(BOARD_AVB_BOOT_ROLLBACK_INDEX)
+
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
+BOOT_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 PLATFORM_VERSION := 99.87.36
+PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 # TWRP Configuration
 TW_THEME := portrait_hdpi
@@ -111,3 +120,33 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
+
+# Storage System Operations and File Systems Compatibility
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_USES_MKE2FS := true
+TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
+TW_INCLUDE_NTFS_3G := true
+TW_NO_FASTBOOT_BOOT := true
+TW_EXCLUDE_TWRP_APP := true
+
+# Debug and Logging Modules
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+# Maintainer/Version
+TW_DEVICE_VERSION := perilouspike-beta
+
+# Graphics and Display Configuration
+TW_FRAMERATE := 90
+
+# Display Backlight Controls (Corrected for MediaTek mt6769 Kernel Layout)
+TW_MAX_BRIGHTNESS := 2047
+TW_DEFAULT_BRIGHTNESS := 1024
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+
+# Binary Executables Inclusion Configurations
+TW_INCLUDE_BASH := true
+
+# Peripheral Control Overrides
+TW_EXCLUDE_DEFAULT_USB_INIT := true
