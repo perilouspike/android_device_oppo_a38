@@ -1,0 +1,22 @@
+# Gateway Graphics & Framebuffer Tweaks
+ro.sf.lcd_density=320
+ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
+# USB & Android Debug Bridge (ADB) Configurations
+ro.secure=0
+ro.adb.secure=0
+ro.debuggable=1
+persist.sys.usb.config=mtp,adb
+
+# MediaTek On-Chip Hardware Platforms Routing
+ro.hardware=mt6769
+ro.board.platform=mt6769
+
+# Core adbd bypass properties
+sys.usb.configfs=1
+persist.service.adb.enable=1
+persist.service.debuggable=1
+
+# Unblock logd execution loops inside recovery ramdisk
+ro.logd.kernel=1
+persist.logd.logpersistd=logcat
