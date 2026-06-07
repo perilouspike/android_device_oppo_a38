@@ -19,7 +19,6 @@ AB_OTA_PARTITIONS += \
     system \
     vbmeta_system \
     product
-BOARD_USES_RECOVERY_AS_BOOT := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -73,25 +72,31 @@ endif
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
-BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
-BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product odm my_product my_engineering my_company my_carrier my_region my_heytap my_stock my_preload my_bigball my_manifest
-BOARD_OPLUS_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
+
+# Dynamic Partitions Config
+BOARD_SUPER_PARTITION_GROUPS := main
+BOARD_MAIN_PARTITION_LIST := system vendor product odm my_product my_engineering my_company my_carrier my_region my_heytap my_stock my_preload my_bigball my_manifest
+BOARD_MAIN_SIZE := 9122611200
 
 # Platform
-TARGET_BOARD_PLATFORM := mt6768
+PRODUCT_PLATFORM := mt6768
+TARGET_BOARD_PLATFORM := $(PRODUCT_PLATFORM)
 
 # Recovery
+TARGET_NO_RECOVERY := true
+BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+
+# File System Types Configuration
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # System Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
@@ -105,6 +110,7 @@ BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_BOOT_ROLLBACK_INDEX := 1
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := $(BOARD_AVB_BOOT_ROLLBACK_INDEX)
+BOARD_AVB_BOOT_ADD_HASH_FOOTER_ARGS := --partition_size $(BOARD_BOOTIMAGE_PARTITION_SIZE) # Android 14 Explicit padding constraint requirement
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
