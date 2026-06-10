@@ -7,30 +7,24 @@
 
 LOCAL_PATH := device/Oppo/A38
 
-# A/B
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
+# Dynamic Partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Boot control HAL
-PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-service
+# Virtual A/B System Configuration
+ENABLE_VIRTUAL_AB := true
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
+# Fastbootd Daemon Architecture 
 PRODUCT_PACKAGES += \
-    bootctrl.mt6768
+    fastbootd
 
+# Modern AIDL Boot Control HAL (Ensures flawless slot switching on Android 14)
 PRODUCT_PACKAGES += \
-    bootctrl.mt6768 \
-    libgptutils \
-    libz \
-    libcutils
+    android.hardware.boot-service.default \
+    android.hardware.boot-service.default.recovery \
+    bootctrl
 
+# MediaTek Preloader Path Utilities (Ensures Slot Switching Visibility)
 PRODUCT_PACKAGES += \
-    otapreopt_script \
-    cppreopts.sh \
-    update_engine \
-    update_verifier \
-    update_engine_sideload
+    mtk_plpath_utils \
+    mtk_plpath_utils.recovery
