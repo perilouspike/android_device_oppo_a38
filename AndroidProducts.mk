@@ -1,0 +1,5 @@
+PRODUCT_MAKEFILES := \
+    $(LOCAL_DIR)/twrp_A38.mk
+
+COMMON_LUNCH_CHOICES := \
+    twrp_A38-eng
