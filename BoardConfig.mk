@@ -94,3 +94,6 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 #OF_USE_GREEN_LED := 0
 #F_FL_PATH1 := /sys/class/flashlight_core/flashlight/flashlight_torch
 #TW_BATTERY_SYSFS_PATH := /sys/class/power_supply/battery
+
+# Recovery
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
