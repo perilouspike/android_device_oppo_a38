@@ -21,3 +21,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     mtk_plpath_utils \
     mtk_plpath_utils.recovery
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/system/etc/cgroups.json:$(TARGET_RECOVERY_ROOT_OUT)/system/etc/cgroups.json \
+    $(LOCAL_PATH)/recovery/root/system/etc/task_profiles.json:$(TARGET_RECOVERY_ROOT_OUT)/system/etc/task_profiles.json
