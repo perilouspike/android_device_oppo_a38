@@ -29,7 +29,9 @@ PRODUCT_PLATFORM := mt6768
 TARGET_BOARD_PLATFORM := $(PRODUCT_PLATFORM)
 
 BOARD_BOOT_HEADER_VERSION := 4
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user androidboot.selinux=permissive
+# Add Bootconfig specifically for the SELinux permissive flag
+BOARD_BOOTCONFIG := androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
@@ -97,3 +99,7 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+
+# Logging Configuration
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
