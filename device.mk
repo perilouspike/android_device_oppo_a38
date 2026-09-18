@@ -24,4 +24,5 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/system/etc/cgroups.json:$(TARGET_RECOVERY_ROOT_OUT)/system/etc/cgroups.json \
-    $(LOCAL_PATH)/recovery/root/system/etc/task_profiles.json:$(TARGET_RECOVERY_ROOT_OUT)/system/etc/task_profiles.json
+    $(LOCAL_PATH)/recovery/root/system/etc/task_profiles.json:$(TARGET_RECOVERY_ROOT_OUT)/system/etc/task_profiles.json \
+    $(LOCAL_PATH)/recovery/root/init.recovery.logd.rc:$(TARGET_RECOVERY_ROOT_OUT)/init.recovery.logd.rc

@@ -179,6 +179,30 @@
           }
         }
       ]
+    },
+    {
+      "Name": "SCHED_SP_BACKGROUND",
+      "Actions": [
+        {
+          "Name": "SetAttribute",
+          "Params": {
+            "Name": "CpuWeight",
+            "Value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "NormalIoPriority",
+      "Actions": [
+        {
+          "Name": "SetAttribute",
+          "Params": {
+            "Name": "CpuWeight",
+            "Value": "100"
+          }
+        }
+      ]
     }
   ],
 

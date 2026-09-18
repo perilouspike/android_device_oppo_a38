@@ -1,14 +1,15 @@
 on early-init
-    # Set up symlinks for configuration lookups
+    # 1. Create cgroup info directory FIRST so init can write cgroup.rc
+    mkdir /dev/cgroup_info 0755 root system
+    mkdir /sys/fs/cgroup 0755 root system
+    mount cgroup2 none /sys/fs/cgroup nodev noexec nosuid
+
+    # 2. Establish system/vendor directory symlinks
     symlink /system/etc /etc
     mkdir /vendor 0755 root shell
     mkdir /vendor/etc 0755 root shell
     symlink /system/etc/task_profiles.json /vendor/etc/task_profiles.json
     symlink /system/etc/cgroups.json /vendor/etc/cgroups.json
-
-    # Mount cgroup2 filesystem
-    mkdir /sys/fs/cgroup 0755 root system
-    mount cgroup2 none /sys/fs/cgroup nodev noexec nosuid
 
 on fs && property:ro.debuggable=0
     # distinguish USB shoulde connect or not, i.e. CDP vs SDP
@@ -26,3 +27,7 @@ on post-fs
     symlink /dev/block/mmcblk0boot1 /dev/block/by-name/preloader_b
 
     exec u:r:update_engine:s0 root root -- /system/bin/mtk_plpath_utils
+    
+on post-fs-data
+    # 3. Start logd after cgroups and paths are completely ready
+    start logd
